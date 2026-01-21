@@ -29,7 +29,7 @@ mongoose
 // Konfigurasi AI
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 // Gunakan model yang stabil
-const model = genAI.getGenerativeModel({ model: "gemini-pro-latest" });
+const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
 
 // Route Utama
 app.get("/", (req, res) => res.send("Backend Syzen Hotel Siap (Vercel)!"));
