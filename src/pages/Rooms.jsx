@@ -46,7 +46,7 @@ const Rooms = () => {
   useEffect(() => {
     const fetchRooms = async () => {
       try {
-        const response = await fetch("http://localhost:5001/api/rooms");
+        const response = await fetch("https://syzen-hotel-api.vercel.app/api/rooms");
         const data = await response.json();
         setRooms(data);
         setLoading(false);

@@ -38,7 +38,7 @@ const Gallery = () => {
   useEffect(() => {
     const fetchGallery = async () => {
       try {
-        const response = await fetch("http://localhost:5001/api/gallery");
+        const response = await fetch("https://syzen-hotel-api.vercel.app/api/gallery");
         const data = await response.json();
         setImages(data);
         setLoading(false);
