@@ -10,7 +10,14 @@ require("dotenv").config();
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: "*", // Izinkan semua domain (Frontend mana saja boleh masuk)
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  }),
+);
+
 app.use(express.json());
 
 // --- KONEKSI DATABASE (VERSI AMAN) ---

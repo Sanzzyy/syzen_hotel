@@ -47,7 +47,7 @@ const Rooms = () => {
     const fetchRooms = async () => {
       try {
         // Pastikan URL backend Vercel kamu benar di sini
-        const response = await fetch("https://syzen-api.vercel.app/api/rooms");
+        const response = await fetch("https://syzen-hotel-api.vercel.app/api/rooms");
 
         // Cek apakah response sukses (status 200-299)
         if (!response.ok) {

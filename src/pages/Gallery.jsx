@@ -38,7 +38,7 @@ const Gallery = () => {
   useEffect(() => {
     const fetchGallery = async () => {
       try {
-        const response = await fetch("https://syzen-api.vercel.app/api/gallery");
+        const response = await fetch("https://syzen-hotel-api.vercel.app/api/gallery");
 
         if (!response.ok) throw new Error("Gagal fetch gallery");
 
