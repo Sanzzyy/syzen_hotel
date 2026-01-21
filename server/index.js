@@ -15,16 +15,27 @@ app.use(express.json());
 
 // --- KONEKSI DATABASE (VERSI AMAN) ---
 // Kita ambil link dari Environment Variable, bukan ditulis langsung
+// ... kode sebelumnya ...
+
 const uri = process.env.MONGO_URI;
 
+// Opsi tambahan supaya koneksi lebih stabil di Vercel (Serverless)
+const clientOptions = {
+  serverApi: { version: "1", strict: true, deprecationErrors: true },
+  connectTimeoutMS: 10000, // Tunggu 10 detik sebelum nyerah
+};
+
 if (!uri) {
-  console.error("❌ ERROR: MONGO_URI belum di-set di file .env atau Vercel!");
+  console.error("❌ ERROR: MONGO_URI belum di-set!");
 }
 
 mongoose
-  .connect(uri)
+  .connect(uri, clientOptions)
   .then(() => console.log("✅ Berhasil konek ke Database MongoDB!"))
-  .catch((err) => console.error("❌ Gagal konek database:", err));
+  .catch((err) => {
+    console.error("❌ Gagal konek database:", err);
+    // Penting: Di Vercel, console.error akan muncul di Logs
+  });
 
 // Konfigurasi AI
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
