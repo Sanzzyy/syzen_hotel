@@ -46,13 +46,29 @@ const Rooms = () => {
   useEffect(() => {
     const fetchRooms = async () => {
       try {
-        const response = await fetch("https://syzen-hotel-api.vercel.app/api/rooms");
+        // Pastikan URL backend Vercel kamu benar di sini
+        const response = await fetch("https://syzen-api.vercel.app/api/rooms");
+
+        // Cek apakah response sukses (status 200-299)
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
         const data = await response.json();
-        setRooms(data);
-        setLoading(false);
+
+        // --- PENGAMAN ANTI LAYAR PUTIH ---
+        // Cek: Apakah data yang datang bentuknya Array (Daftar)?
+        if (Array.isArray(data)) {
+          setRooms(data);
+        } else {
+          console.error("Format data salah, bukan array:", data);
+          setRooms([]); // Set array kosong biar gak crash
+        }
       } catch (error) {
-        console.error("Failed to fetch data:", error);
-        setLoading(false);
+        console.error("Gagal mengambil data:", error);
+        setRooms([]); // Set array kosong kalau error network
+      } finally {
+        setLoading(false); // Matikan loading apapun yang terjadi
       }
     };
 

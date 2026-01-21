@@ -38,12 +38,23 @@ const Gallery = () => {
   useEffect(() => {
     const fetchGallery = async () => {
       try {
-        const response = await fetch("https://syzen-hotel-api.vercel.app/api/gallery");
+        const response = await fetch("https://syzen-api.vercel.app/api/gallery");
+
+        if (!response.ok) throw new Error("Gagal fetch gallery");
+
         const data = await response.json();
-        setImages(data);
-        setLoading(false);
+
+        // Pengaman
+        if (Array.isArray(data)) {
+          setImages(data);
+        } else {
+          console.error("Data Gallery bukan array:", data);
+          setImages([]);
+        }
       } catch (error) {
-        console.error("Failed to fetch images:", error);
+        console.error("Gagal ambil gambar:", error);
+        setImages([]);
+      } finally {
         setLoading(false);
       }
     };
